@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register src/index",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node src/app.ts",
     "lint": "npx eslint -c .eslintrc.js 'src/**/*.ts'",
     "lint:fix": "npx eslint --fix -c .eslintrc.js 'src/**/*.ts'"
   },

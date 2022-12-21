@@ -3,7 +3,7 @@ import * as http from 'http'
 import { AddressInfo } from 'net'
 
 const host = process.env.HOST || '0.0.0.0'
-const port = process.env.PORT || '8000'
+const port = process.env.PORT || '8080'
 
 const startServer = async () => {
   const app = await createServer()
