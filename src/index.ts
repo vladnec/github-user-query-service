@@ -1,9 +1,12 @@
 import { createServer } from './config/express'
 import * as http from 'http'
 import { AddressInfo } from 'net'
+import { config } from 'dotenv'
 
 const host = process.env.HOST || '0.0.0.0'
 const port = process.env.PORT || '8080'
+
+config()
 
 const startServer = async () => {
   const app = await createServer()
@@ -11,6 +14,7 @@ const startServer = async () => {
     const addressInfo = server.address() as AddressInfo
     console.log(`Server ready at http://${addressInfo.address}:${addressInfo.port}`)
   })
+  console.log('access token', process.env.GITHUB_ACCESS_TOKEN)
 }
 
 startServer()
