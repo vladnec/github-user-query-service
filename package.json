@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register src/index",
+    "test": "jest --coverage",
     "dev": "ts-node src/app.ts",
     "lint": "npx eslint -c .eslintrc.js 'src/**/*.ts'",
     "lint:fix": "npx eslint --fix -c .eslintrc.js 'src/**/*.ts'"
