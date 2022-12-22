@@ -1,52 +1,51 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios'
 import { User } from '../interfaces/User'
 import { UserResponse } from '../interfaces/axios/UserResponse'
 
 class GitService {
-
+  private axiosInstance: AxiosInstance
+  private readonly accessToken: string
   private ROOT_URL = 'https://api.github.com/'
 
-  public getUsersIdByProgrammingLanguage = async (programmingLanguage: string): Promise<UserResponse[]> => {
-    console.log('fetching user lists by programming language:', programmingLanguage)
-    const url = `${this.ROOT_URL}search/users?q=language:${programmingLanguage}`
-    const options: AxiosRequestConfig = {
-      url,
+  constructor() {
+    this.axiosInstance = axios.create()
+    this.accessToken = `token ${process.env.GITHUB_ACCESS_TOKEN}`
+  }
+
+  private getHeaders = () => ({
+    Authorization: this.accessToken
+  })
+
+  public getUsersByProgrammingLanguage = async (programmingLanguage: string): Promise<UserResponse[]> => {
+    const axiosConfig: AxiosRequestConfig = {
+      url: `${this.ROOT_URL}search/usersa?q=language:${programmingLanguage}`,
       method: 'GET',
-      headers: {
-        authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`
-      }
+      headers: this.getHeaders()
     }
-    try {
-      const response = await axios(options)
-      console.log(response.data, 'response')
-      return response.data.items
-    } catch (e) {
-      throw new Error(e.message)
-    }
+    return this.axiosInstance(axiosConfig)
+      .then((response)=> response.data.items)
+      .catch((error: AxiosError) => {
+        throw new Error(`Error fetching users by programming language: ${programmingLanguage}. Error message: ${error.message}`)
+      })
   }
 
   public getUserDataByLogin = async (username: string): Promise<User> => {
-    console.log('fetching user by login:', username)
-    const url = `${this.ROOT_URL}users/${username}`
-    const options: AxiosRequestConfig = {
-      url,
+    const axiosConfig: AxiosRequestConfig = {
+      url: `${this.ROOT_URL}users/${username}`,
       method: 'GET',
-      headers: {
-        authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`
-      }
+      headers: this.getHeaders()
     }
-    try {
-      const response = await axios(options)
-      console.log(response.data, 'response')
-      return ({
-        username,
-        name: response.data.name,
-        avatar_url: response.data.avatar_url,
-        followers: response.data.followers,
+    return this.axiosInstance(axiosConfig)
+      .then((response) => ({
+          username,
+          name: response.data.name,
+          avatar_url: response.data.avatar_url,
+          followers: response.data.followers,
+        })
+      )
+      .catch((error: AxiosError) => {
+        throw new Error(`Error fetching user data by user login: ${username}. Error message: ${error.message}`)
       })
-    } catch (e) {
-      throw new Error(e.message)
-    }
   }
 }
 

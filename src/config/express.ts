@@ -9,10 +9,7 @@ const createServer = (): express.Application => {
   app.use(cors())
   app.use(setHeaders)
   app.use('/github_api', routes);
-  app.get('/', (_req, res) => {
-    res.send('Working')
-  })
-
+  
   return app
 }
 

@@ -14,7 +14,6 @@ const startServer = async () => {
     const addressInfo = server.address() as AddressInfo
     console.log(`Server ready at http://${addressInfo.address}:${addressInfo.port}`)
   })
-  console.log('access token', process.env.GITHUB_ACCESS_TOKEN)
 }
 
 startServer()
