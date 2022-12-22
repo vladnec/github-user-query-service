@@ -25,6 +25,10 @@ export class GitService {
 
   public getAllUsersByProgrammingLanguage = async (programmingLanguage: string): Promise<User[]> => {
     try {
+      // const userList: User[] = []
+      // const response = await this.getUserByLogin('vladnec')
+      // userList.push(response)
+      // return userList
       const users = await this.getUsersByProgrammingLanguage(programmingLanguage)
       const userList: User[] = []
       for (const user of users) {

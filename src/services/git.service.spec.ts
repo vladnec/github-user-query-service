@@ -40,11 +40,14 @@ describe('GitService', () => {
     const getUsersByProgrammingLanguageMockSpy = jest
       .spyOn(gitService, 'getUsersByProgrammingLanguage')
       .mockRejectedValue(new Error('Not found'))
+
     const getUsersByLogin = jest.spyOn(gitService, 'getUserByLogin')
+
     //when
     try {
       await gitService.getAllUsersByProgrammingLanguage(language)
     } catch (error) {
+
       //then
       expect(error.message).toBe(`${ErrorMessages.ERROR_USERS}. Error message: Not found`)
     }

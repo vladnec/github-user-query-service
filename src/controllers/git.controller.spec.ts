@@ -24,7 +24,6 @@ describe('gitController' , () => {
         send: jest.fn()
       } as unknown as Response;
 
-
       const gitServiceMockSpy = jest.spyOn(gitService, 'getAllUsersByProgrammingLanguage').mockImplementation(() => Promise.resolve(users))
 
       // when
@@ -51,7 +50,7 @@ describe('gitController' , () => {
         send: jest.fn()
       } as unknown as Response;
 
-      const gitServiceMockSpy = jest.spyOn(gitService, 'getAllUsersByProgrammingLanguage').mockImplementationOnce(() => Promise.reject(expectedResponse))
+      jest.spyOn(gitService, 'getAllUsersByProgrammingLanguage').mockImplementationOnce(() => Promise.reject(expectedResponse))
 
       // when
       try {
