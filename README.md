@@ -1,4 +1,5 @@
-# Mobimeo Technical Task
+# Github User Query Service
+Service which exposes an API that retrieves github users by programming language. 
 
 ## Installation & Setup
 
@@ -10,8 +11,8 @@
 - Inside the root of the project, run `docker build . -t <suitable-image-name>`
 - Run `docker run -p <desired-port>:8080 -d <suitable-image-name>`
 - Example scripts: 
-- `docker build . -t vladnec/mobimeo-task`
-- `docker run -p 49160:8080 -d vladnec/mobimeo-task` 
+- `docker build . -t vladnec/query-service`
+- `docker run -p 49160:8080 -d vladnec/query-service` 
 
 ### Terminating the Docker Application 
 - To kill the application, first run `docker ps` to get the containerId. 
